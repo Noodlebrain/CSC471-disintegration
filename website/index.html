@@ -1,0 +1,184 @@
+<html>
+<head>
+  <title>Disintegration Effect</title>
+
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: white;
+      color: #333333;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+      font-family: "Source Sans Pro", Helvetica;
+    }
+
+    img {
+      display: block;
+    }
+
+    em {
+      font-size: 12px;
+    }
+
+    #signature {
+      margin-left: 30px;
+      font-style: oblique;
+    }
+
+    a:link,
+    a:visited {
+      color: #165788;
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus,
+    a:active {
+      text-decoration: underline;
+    }
+
+    .wrapper {
+      width: 660px;
+      margin: auto;
+    }
+
+    .container {
+      width: 660px;
+      margin: auto;
+    }
+
+    #content {
+      width: 650px;
+      margin: 70px auto 0px auto;
+    }
+
+    #content article {
+      margin-bottom: 150px;
+    }
+
+    #content h1,
+    #content h2 {
+      color: black;
+      margin-bottom: 30px;
+      font-weight: 200;
+      font-size: 48px;
+    }
+
+    #content h3 {
+      color: black;
+      border-bottom: 1px solid black;
+      text-transform: uppercase;
+      margin: 30px 0px 30px 0px;
+      font-size: 28px;
+      font-weight: 200;
+    }
+
+    #content p {
+      width: 100%;
+      line-height: 150%;
+      margin-bottom: 20px;
+    }
+
+    #content p:first-child {
+      font-size: 18px;
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+
+    #content p:first-child:first-line {
+        font-weight: bold;
+    }
+
+    #content ul {
+        padding-left:25px
+    }
+
+    pre {
+      font-size: 10px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #ddd;
+    }
+  </style>
+</head>
+
+<body><div class="wrapper"><section id="content">
+
+<h1>Disintegration Effect</h1>
+
+<h4>Kenneth Huang - CSC 471 - Fall 2018 - Christian Eckhardt</h4>
+
+<article> <!-- This adds padding at the top and bottom -->
+
+
+
+
+<h3>Project Description</h3>
+
+<p>For my final project for CSC 471 (Intro to Computer Graphics), I decided to
+   create a disintegration effect where a model fades into dust, in a similar
+   fashion to something that happens in a rather famous Marvel movie.</p>
+<p>This project makes use of a geometry shader to manipulate polygons to be
+   rendered before they go into the rasterizer and fragment shader. Since the
+   geometry shader allows input of multiple vertices (a complete triangle,
+   for instance), I can work with entire triangles, rather than applying
+   calculations to only one vertex at a time.<br>
+   This project also uses the model and texture of Alduin from Skyrim as a
+   victim of this disintegration effect.</p>
+
+<p>When making the geometry shader, I had three goals that I wanted to
+   accomplish:
+  <ul>
+    <li>1) Triangles should gradually float away from the model.</li>
+    <li>2) Effect needs to sweep from one side to the other.</li>
+    <li>3) Triangles should shrink in size while floating away.</li>
+  </ul>
+</p>
+
+<!-- A Centered image -->
+<center>
+  <a>
+    <img src="decay.png" width="75%">
+  </a>
+  <em>A screenshot of dragons during decay.</em>
+</center>
+<br>
+<p>I was able to address my goals by implementing the following solutions:
+  <ul>
+    <li>1) Used a quadratic function to translate the triangles, using
+        <code>glfwGetTime()</code> as a variable.</li>
+    <li>2) Added factors based on xy-position to the time variable so that
+        triangles on one side would float away before triangles on the other.</li>
+    <li>3) Used the 3 points of the triangle to calculate an average point;
+        used this in an weighted average with each vertex, weighted by the
+        modified time factor mentioned in 2).</li>
+  </ul>
+</p>
+
+<p>This project requires SteamVR to run, and will run on a virtual reality
+   headset if one is connected to your computer.</p>
+
+<h3>Media & Source Code</h3>
+<h4>Video Demonstration</h4>
+<p>A video demonstration of this project is available on YouTube
+   <a href="https://youtu.be/FwgG_6VD2WI">here.</a></p>
+<h4>Project Source Code</h4>
+<p>Source code can be found and downloaded on GitHub
+   <a href="https://github.com/Noodlebrain/CSC471-disintegration">here.</a></p>
+
+
+
+
+<h3>Resources</h3>
+<ul>
+  <li><a href="https://learnopengl.com/Advanced-OpenGL/Geometry-Shader">
+     Geometry Shader on Learn OpenGL</a></li>
+</ul>
+
+</article></section></div></body></html>
